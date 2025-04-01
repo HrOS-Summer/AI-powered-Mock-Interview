@@ -97,6 +97,7 @@ export const mappings = {
   "aws amplify": "amplify",
 };
 
+
 export const interviewer: CreateAssistantDTO = {
   name: "Interviewer",
   firstMessage:
@@ -203,3 +204,17 @@ export const interviewCovers = [
   "/tiktok.png",
   "/yahoo.png",
 ];
+
+export const dummyInterviews: Interview[] = [
+  {
+    id: "1",
+    userId: "user1",
+    role: "Frontend Developer",
+    type: "Technical",
+    techstack: ["React", "TypeScript", "Next.js", "Tailwind CSS"],
+    level: "Junior",
+    questions: ["What is React?"],
+    finalized: false,
+    createdAt: "2024-03-15T10:00:00Z"
+  },
+]
