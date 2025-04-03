@@ -3,9 +3,10 @@
 import { cn } from '@/lib/utils';
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { vapi } from '@/lib/vapi.sdk';
 import { interviewer } from '@/constants';
+import { createFeedback } from '@/lib/actions/general.action';
 
 enum CallStatus {
     INACTIVE = 'INACTIVE',
@@ -61,32 +62,39 @@ const Agent = ({ userName, userId, type, interviewId, questions }: AgentProps) =
         }
     }, [])
 
-    const handleGenerateFeedback = async (messages: SavedMessage[]) => {
+    
+
+
+    const handleGenerateFeedback = useCallback(async (messages: SavedMessage[]) => {
         console.log('Generate feedback here.');
 
-        //TODO: Create a server action that generates feedback
-        const { success, id } = {
-            success: true,
-            id: 'feedback-id'
-        }
+        if (!interviewId || !userId) return; // Ensure values exist
 
-        if(success && id) {
-            router.push(`/interview/${interviewId}/feedback`)
+        const { success, feedbackId: id } = await createFeedback({
+            interviewId,
+            userId,
+            transcript: messages
+        });
+
+        if (success && id) {
+            router.push(`/interview/${interviewId}/feedback`);
         } else {
             console.log('Error saving feedback');
             router.push('/');
         }
-    }
+    }, [interviewId, userId, router]);
 
+    // Now safely include handleGenerateFeedback in useEffect
     useEffect(() => {
-        if(callStatus === CallStatus.FINISHED) {
-            if(type === 'generate') {
-                router.push('/')
+        if (callStatus === CallStatus.FINISHED) {
+            if (type === 'generate') {
+                router.push('/');
             } else {
                 handleGenerateFeedback(messages);
             }
         }
-    }, [messages, callStatus, type, userId, router]);
+    }, [messages, callStatus, router, type, handleGenerateFeedback]);
+
 
     const handleCall = async () => {
         setCallStatus(CallStatus.CONNECTING);
