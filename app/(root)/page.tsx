@@ -1,6 +1,6 @@
 import InterviewCard from '@/components/InterviewCard'
 import { Button } from '@/components/ui/button'
-import { getCurrentUser } from '@/lib/actions/auth.action'
+import { getCurrentUser, signOut } from '@/lib/actions/auth.action'
 import { getInterviewsByUserId, getLatestInterviews } from '@/lib/actions/general.action'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -30,9 +30,15 @@ const page = async () => {
             Practice on real interview questions & get instant feedback
           </p>
 
-          <Button asChild className='btn-primary max-sm:w-full'>
-            <Link href="/interview">Start an interview</Link>
-          </Button>
+          <div className="flex flex-row justify-between">
+            <Button asChild className='btn-primary max-sm:w-full'>
+              <Link href="/interview">Start an interview</Link>
+            </Button>
+            <Button className='btn-primary max-sm:w-full' onClick={signOut}>
+              Log Out
+            </Button>
+          </div>
+          
         </div>
 
         <Image src="/robot.png" alt='robot' height={400} width={400}
@@ -50,7 +56,7 @@ const page = async () => {
                 <InterviewCard {...interview} key={interview.id}/>
               ))
             ) : (
-              <p>You haven&apos;t genrated any interviews yet. Click <span className='bg-dark-200 rounded-2xl px-3'>Start an interview
+              <p>You haven&apos;t generated any interviews yet. Click <span className='bg-dark-200 rounded-2xl px-3'>Start an interview
                 </span> button above to generate an interview.</p> 
             
             )

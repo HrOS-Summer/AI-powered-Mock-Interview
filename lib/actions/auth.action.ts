@@ -2,6 +2,7 @@
 
 import { auth, db } from "@/firebase/admin";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const ONE_WEEK = 60 * 60 * 24 * 7 * 1000;
 
@@ -118,3 +119,24 @@ export async function isAuthenticated() {
     return !!user;
 }
 
+// 🔹 Implement Sign-Out Function
+export async function signOut() {
+    try {
+        const cookieStore = await cookies(); // Await here to get the cookie store
+
+        // Remove the session cookie
+        cookieStore.set("session", "", {
+            maxAge: -1, // Expire the cookie immediately
+            path: "/"
+        });
+
+        redirect("/sign-in");
+    } catch (e) {
+        console.error("Error signing out:", e);
+
+        return {
+            success: false,
+            message: "Failed to sign out. Try again."
+        };
+    }
+}
