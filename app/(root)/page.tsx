@@ -30,7 +30,7 @@ const page = async () => {
             Practice on real interview questions & get instant feedback
           </p>
 
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row justify-between max-sm:flex-col max-sm:gap-4">
             <Button asChild className='btn-primary max-sm:w-full'>
               <Link href="/interview">Start an interview</Link>
             </Button>
