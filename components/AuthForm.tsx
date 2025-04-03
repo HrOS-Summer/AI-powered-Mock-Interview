@@ -95,7 +95,7 @@ const AuthForm = ({type}: { type: FormType}) => {
         <div className="flex flex-col gap-6 card py-14 px-10">
             <div className="flex flex-row gap-2 justify-center">
                 <Image src="/logo.svg" alt="logo" height={32} width={38}/>
-                <h2 className="text-primary-100">PrepWise</h2>
+                <h2 className="text-primary-100">MockMind</h2>
             </div>
 
             <h3>Practice job interview with AI</h3>
@@ -129,6 +129,7 @@ const AuthForm = ({type}: { type: FormType}) => {
                         type="submit">
                             {isSignIn ? 'Sign in' : 'Create an Account'}
                     </Button>
+                    
                 </form>
             </Form>
             <p>
@@ -136,7 +137,9 @@ const AuthForm = ({type}: { type: FormType}) => {
                 <Link href={!isSignIn ? "/sign-in" : '/sign-up'} className="font-bold text-user-primary ml-1">
                     {!isSignIn ? "Sign in" : "Sign up"}
                 </Link>
+                
             </p>
+            <p className="text-center text-[13px]">Developed by HrOS with <span className="text-red-600">❤</span></p>
         </div>
     </div>
   )

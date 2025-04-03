@@ -50,7 +50,9 @@ const page = async () => {
                 <InterviewCard {...interview} key={interview.id}/>
               ))
             ) : (
-              <p>You haven&apos;t taken any interviews yet</p> 
+              <p>You haven&apos;t genrated any interviews yet. Click <span className='bg-dark-200 rounded-2xl px-3'>Start an interview
+                </span> button above to generate an interview.</p> 
+            
             )
           }  
         </div>
