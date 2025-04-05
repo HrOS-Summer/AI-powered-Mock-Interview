@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Test the app on : https://ai-powered-mock-interview.vercel.app/sign-in
+Test the app at : https://ai-powered-mock-interview.vercel.app/sign-in
 
 ## Getting Started
 
