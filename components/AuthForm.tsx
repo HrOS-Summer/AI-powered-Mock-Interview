@@ -14,6 +14,8 @@ import Link from "next/link"
 import { toast } from "sonner"
 import FormField from "./FormField"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { Eye, EyeOff } from "lucide-react"
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from "@/firebase/client"
@@ -30,6 +32,10 @@ const authFormSchema = (type: FormType) => {
 const AuthForm = ({type}: { type: FormType}) => {
     const router = useRouter();
     const formSchema = authFormSchema(type);
+
+    // Add state for password visibility
+    const [showPassword, setShowPassword] = useState(false);
+
     // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -117,13 +123,35 @@ const AuthForm = ({type}: { type: FormType}) => {
                         placeholder="Your email address"
                         type="email"
                     />
-                    <FormField 
-                        control={form.control} 
-                        name="password" 
-                        label="Password" 
-                        placeholder="Your password"
-                        type="password"
-                    />
+                    {/* Password field with show/hide functionality */}
+                    <div style={{ position: "relative" }}>
+                        <FormField 
+                            control={form.control} 
+                            name="password" 
+                            label="Password" 
+                            placeholder="Your password"
+                            type={showPassword ? "text" : "password"}
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            style={{
+                                position: "absolute",
+                                right: 12,
+                                top: 38,
+                                background: "none",
+                                border: "none",
+                                padding: 0,
+                                cursor: "pointer",
+                                display: "flex",
+                                alignItems: "center"
+                            }}
+                            tabIndex={-1}
+                            aria-label={showPassword ? "Hide password" : "Show password"}
+                        >
+                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
+                    </div>
                     <Button    
                         className="btn" 
                         type="submit">
@@ -139,9 +167,11 @@ const AuthForm = ({type}: { type: FormType}) => {
                 </Link>
                 
             </p>
-            <p>For testing purpose,login using below credential</p>
-            <p>Email: test@testmail.com</p>
-            <p>Password: test@123</p>
+            <p>For testing purpose, login using below credentials</p>
+            <div style={{ lineHeight: 1.2, fontFamily: 'Consolas, monospace' }}>
+                <p>Email: test@testmail.com</p>
+                <p>Password: test@123</p>
+            </div>
             <p className="text-center text-[13px]">Developed by HrOS with <span className="text-red-600">❤</span></p>
         </div>
     </div>
