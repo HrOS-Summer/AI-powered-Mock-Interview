@@ -139,6 +139,9 @@ const AuthForm = ({type}: { type: FormType}) => {
                 </Link>
                 
             </p>
+            <p>For testing purpose,login using below credential</p>
+            <p>Email: test@testmail.com</p>
+            <p>Password: test@123</p>
             <p className="text-center text-[13px]">Developed by HrOS with <span className="text-red-600">❤</span></p>
         </div>
     </div>
